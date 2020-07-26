@@ -87,6 +87,18 @@ prometheus:
       labels:
         severity: warning
 
+    # MetalLBAddressPoolExhausted
+    addressPoolExhausted:
+      enabled: true
+      labels:
+        severity: alert
+
+    # MetalLBBGPSessionDown
+    bgpSessionDown:
+      enabled: true
+      labels:
+        severity: alert
+
 # controller contains configuration specific to the MetalLB cluster
 # controller.
 controller:

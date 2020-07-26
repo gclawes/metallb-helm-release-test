@@ -33,4 +33,28 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- end }}
+    {{- if .Values.prometheus.prometheusRule.addressPoolExhausted.enabled }}
+    - alert: MetalLBAddressPoolExhausted
+      annotations:
+        message: {{`'{{ $labels.job }} - MetalLB {{ $labels.container }} on {{ $labels.pod
+          }} has exhausted address pool {{ $labels.pool }} for > 1 minute'`}}
+      expr: metallb_allocator_addresses_in_use_total >= on(pool) metallb_allocator_addresses_total
+      for: 1m
+      {{- with .Values.prometheus.prometheusRule.addressPoolExhausted.labels }}
+      labels:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- end }}
+    {{- if .Values.prometheus.prometheusRule.bgpSessionDown.enabled }}
+    - alert: MetalLBBGPSessionDown
+      annotations:
+        message: {{`'{{ $labels.job }} - MetalLB {{ $labels.container }} on {{ $labels.pod
+          }} has BGP session {{ $labels.peer }} down for > 1 minute'`}}
+      expr: metallb_bgp_session_up{job="{{ include "metallb.name" . }}"} == 0
+      for: 1m
+      {{- with .Values.prometheus.prometheusRule.bgpSessionDown.labels }}
+      labels:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- end }}
 {{- end }} 
