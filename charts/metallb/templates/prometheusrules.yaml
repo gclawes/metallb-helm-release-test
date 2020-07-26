@@ -45,6 +45,17 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- end }}
+    {{- range .Values.prometheus.prometheusRule.addressPoolUsage.thresholds }}
+    - alert: MetalLBAddressPoolUsage{{ .percent }}Percent
+      annotations:
+        message: {{`'{{ $labels.job }} - MetalLB {{ $labels.container }} on {{ $labels.pod
+          }} has address pool {{ $labels.pool }} past `}}{{ .percent }}{{`% usage for > 1 minute'`}}
+      expr: ( metallb_allocator_addresses_in_use_total / on(pool) metallb_allocator_addresses_total ) * 100 > {{ .percent }}
+      {{- with .labels }}
+      labels:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- end }}
     {{- if .Values.prometheus.prometheusRule.bgpSessionDown.enabled }}
     - alert: MetalLBBGPSessionDown
       annotations:

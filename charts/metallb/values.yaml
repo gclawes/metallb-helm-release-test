@@ -93,6 +93,19 @@ prometheus:
       labels:
         severity: alert
 
+    addressPoolUsage:
+      enabled: true
+      thresholds:
+        - percent: 75
+          labels:
+            severity: warning
+        - percent: 85
+          labels:
+            severity: warning
+        - percent: 95
+          labels:
+            severity: alert
+
     # MetalLBBGPSessionDown
     bgpSessionDown:
       enabled: true
