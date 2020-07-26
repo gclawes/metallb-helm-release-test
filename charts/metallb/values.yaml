@@ -75,6 +75,18 @@ prometheus:
     # enable alertmanager alerts
     enabled: false
 
+    # MetalLBStaleConfig
+    staleConfig:
+      enabled: true
+      labels:
+        severity: warning
+
+    # MetalLBConfigNotLoaded
+    configNotLoaded:
+      enabled: true
+      labels:
+        severity: warning
+
 # controller contains configuration specific to the MetalLB cluster
 # controller.
 controller:
