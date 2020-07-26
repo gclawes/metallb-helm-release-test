@@ -112,6 +112,8 @@ prometheus:
       labels:
         severity: alert
 
+    extraAlerts: []
+
 # controller contains configuration specific to the MetalLB cluster
 # controller.
 controller:
