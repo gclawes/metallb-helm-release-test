@@ -13,7 +13,7 @@ spec:
       annotations:
         message: {{`'{{ $labels.job }} - MetalLB {{ $labels.container_name }} on {{ $labels.instance
           }} has a stale config for > 1 minute'`}}
-      expr: metallb_k8s_client_config_stale_bool{job="{{ .Values.prometheus.serviceMonitor.jobLabel }}"} == 1
+      expr: metallb_k8s_client_config_stale_bool{job="{{ include "metallb.name" . }}"} == 1
       for: 1m
       labels:
         severity: warning
@@ -21,7 +21,7 @@ spec:
       annotations:
         message: {{`'{{ $labels.job }} - MetalLB {{ $labels.container_name }} on {{ $labels.instance
           }} has not loaded for > 1 minute'`}}
-      expr: metallb_k8s_client_config_loaded_bool{job="{{ .Values.prometheus.serviceMonitor.jobLabel }}"} == 0
+      expr: metallb_k8s_client_config_loaded_bool{job="{{ include "metallb.name" . }}"} == 0
       for: 1m
       labels:
         severity: warning

@@ -7,7 +7,7 @@ metadata:
     {{- include "metallb.labels" . | nindent 4 }}
     app.kubernetes.io/component: controller
 spec:
-  jobLabel: jobLabel
+  jobLabel: {{ .Values.prometheus.podMonitor.jobLabel | quote }}
   selector:
     matchLabels:
       {{- include "metallb.selectorLabels" . | nindent 6 }}
@@ -17,6 +17,7 @@ spec:
     - {{ .Release.Namespace }}
   podMetricsEndpoints:
   - port: metrics
+    path: /metrics
     {{- if .Values.prometheus.podMonitor.interval }}
     interval: {{ .Values.prometheus.podMonitor.interval }}
     {{- end }}
@@ -37,7 +38,7 @@ metadata:
     {{- include "metallb.labels" . | nindent 4 }}
     app.kubernetes.io/component: speaker
 spec:
-  jobLabel: jobLabel
+  jobLabel: {{ .Values.prometheus.podMonitor.jobLabel | quote }}
   selector:
     matchLabels:
       {{- include "metallb.selectorLabels" . | nindent 6 }}
@@ -47,6 +48,7 @@ spec:
     - {{ .Release.Namespace }}
   podMetricsEndpoints:
   - port: metrics
+    path: /metrics
     {{- if .Values.prometheus.podMonitor.interval }}
     interval: {{ .Values.prometheus.podMonitor.interval }}
     {{- end }}
