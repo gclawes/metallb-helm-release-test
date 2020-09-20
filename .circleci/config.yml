@@ -63,25 +63,25 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy-controller:
-          filters:
-            branches:
-              only:
-                - main
-                - /v.*/
-            tags:
-              only: /.*/
-          requires:
-            - test-1.13
-            - lint-1.13
-      - deploy-speaker:
-          filters:
-            branches:
-              only:
-                - main
-                - /v.*/
-            tags:
-              only: /.*/
-          requires:
-            - test-1.13
-            - lint-1.13
+#      - deploy-controller:
+#          filters:
+#            branches:
+#              only:
+#                - main
+#                - /v.*/
+#            tags:
+#              only: /.*/
+#          requires:
+#            - test-1.13
+#            - lint-1.13
+#      - deploy-speaker:
+#          filters:
+#            branches:
+#              only:
+#                - main
+#                - /v.*/
+#            tags:
+#              only: /.*/
+#          requires:
+#            - test-1.13
+#            - lint-1.13
